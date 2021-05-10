@@ -1,0 +1,37 @@
+     <%- include('../partials/header'); %>
+<div class="top-content">
+    <div class="inner-bg">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-2 text">
+            <h1><strong>Login</strong></h1>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3"><a class="btn btn-info" href="/" role="button">Go Back!</a></div>
+          <div class="col-sm-6 form-box">
+            <div class="form-top">
+              <div class="form-top-left">
+                <h3>Fill the form to sign in:</h3>
+              </div>
+            </div>
+            <div class="form-bottom">
+              <%- include('../partials/message'); %>
+              <form class="login-form" role="formlogin" action="/subjects/new" method="POST">
+                <div class="form-group">
+                  <label class="sr-only" for="form-subjectname">Subject name</label>
+                  <input class="form-text form-control" id="form-subjectname" type="text" name="subjectname" placeholder="subjectname">
+                </div>
+              
+                <button class="btn" type="submit">Create</button>
+              </form>
+            </div>
+          </div>
+          <div class="col-sm-3"></div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+   <%- include('../partials/footer'); %>

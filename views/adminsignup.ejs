@@ -1,0 +1,121 @@
+<%- include('./partials/header'); %>
+<style>
+    body{background:#2A2B2B;}
+</style>
+
+      <div style="height: 40px; "></div>
+      
+          <div class="container-fluid"  > 
+              <div class="row" >
+                  <div class="col-md-7 m-x-auto pull-xs-none">
+                      <div class="jumbotron" >
+                          <h2 class="h2-responsive text-center "><strong>Sign up </strong></h2>
+                          <%- include('./partials/message.ejs') %>
+                        
+                          <!-- <hr class="m-y-2"> -->
+  
+                          <!--Naked Form-->
+                          <div class="card-block">
+  
+                              <!--Body-->
+                              <form action="/signup" method="POST">
+  
+                                 
+  
+                                 
+                                  <div class="md-form">
+                                      <i class="fa fa-users prefix"></i>
+                                      <input type="text" name="name" id="form2" class="form-control" value="<%= typeof name != 'undefined' ? name : '' %>">
+                                      <label for="form2">Full Name</label>
+                                  </div>
+                                 
+                                  <div class="md-form">
+                                      <i class="fa fa-user prefix"></i>
+                                      <input type="text" name="username" id="form2" class="form-control" value="<%= typeof username != 'undefined' ? username : '' %>">
+                                      <label for="form2">Username</label>
+                                  </div>
+                                  <div class="md-form">
+                                      <i class="fa fa-school prefix"></i>
+                                      <input type="text" name="school" id="form2" class="form-control" value="<%= typeof school != 'undefined' ? school : '' %>">
+                                      <label for="form2">Name of School</label>
+                                  </div>
+                                  <div class="md-form">
+                                      <i class="fa fa-map prefix"></i>
+                                      <input type="text" name="state" id="form2" class="form-control" value="<%= typeof state != 'undefined' ? state : '' %>">
+                                      <label for="form2">State</label>
+                                  </div>
+  
+                                  <!--Email validation-->
+                                
+                                  <div class="md-form">
+                                      <i class="fa fa-envelope prefix"></i>
+                                      <input type="email" name="email" id="form9" class="form-control validate" value="<%= typeof email != 'undefined' ? email : '' %>">
+                                      <label for="form9" data-error="wrong" data-success="right">Your email</label>
+                                  </div>
+
+                                  <!-- Password -->
+                                  <div class="md-form">
+                                      <i class="fa fa-lock prefix"></i>
+                                      <input type="password" name="password" id="form9" class="form-control validate" >
+                                      <label for="password" >Password</label>
+                                  </div>
+
+                                  <!-- password 2 -->
+                                  <div class="md-form">
+                                      <i class="fa fa-lock prefix"></i>
+                                      <input type="password" name="confirm" id="form9" class="form-control validate">
+                                      <label for="password" >Confirm password</label>
+                                  </div>
+
+                                  <!-- Gender -->
+                                  <div class="md-form">
+                                      <i class="fa fa-transgender prefix"></i>
+                                  
+                                      <select class="custom-select form-control ml-5" id="inputGroupSelect01" name="gender" style="width: 90%;">
+                                        <option  disabled selected>Gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                     
+                                  </div>
+
+                                  <!-- Usertype -->
+                                  <div class="md-form" hidden>
+                                      <i class="fa fa-users-cog prefix"></i>
+                                      <select class="custom-select form-control ml-5 " id="inputGroupSelect01" name="userType" style="width: 90%;">
+                                        <!-- <option disabled selected>User type</option> -->
+                                        <option value="admin" selected>Admin</option>
+                                        <option value="student" >Student</option>
+                                    </select>
+                                  </div>
+  
+                                  <!--Textarea with icon-->
+                                
+                                  <!-- <div class="md-form">
+                                       <i class="fa fa-pencil prefix"></i>
+                                      <textarea type="text" id="form7" class="md-textarea"></textarea>
+                                      <label for="form7">Textarea</label>
+                                  </div> -->
+  
+                               
+  
+                                  <div class="text-xs-left">
+                                      <button class="btn btn-primary">Submit</button>
+                                  </div>
+                              </form>
+  
+                              <div class="m-y-2">
+                                  <p class="small-text small-thin-text" style="font-weight:300">Go and rack your Brain</p>
+                              </div>
+  
+                          </div>
+                          <!--Naked Form-->
+  
+                      </div>
+                  </div>
+              </div>
+              
+          </div>
+  
+  
+     <%- include('./partials/footer'); %>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en"  >  
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,  initial-scale=1.0">
+    <title>ALPHA</title>
+    <link rel="shortcut icon" href="https://cdn.dribbble.com/users/5094913/screenshots/12342536/media/416dddc51a00a5b336239e565e2ccc37.jpg?compress=1&resize=800x600" type="image/x-icon">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/mdb.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/all.css">
+        <!-- FontAweome CDN Link for Icons -->
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+
+<body>
+    
+    <!--the navbar section starts here-->
+    <div id="home">
+     <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar " style="background-color: #2A2B2B;">
+          <a class="navbar-brand" href="/"><img src="https://i.pinimg.com/originals/cb/f3/a8/cbf3a8d20ded67ecebc36f85067cf5fa.png" style="width: 100px; height: 50px;" alt="MSSNAAC"></a>
+          <button class=" navbar-toggler" type="button" data-toggle="collapse" data-target="#myNav" style="border: none; outline: none; ">
+            <span class="toggler-icon"><i style="color: #4caf50; font-size: 30px;" class="fa fa-bars"></i></span>
+          </button>
+          <div class="collapse navbar-collapse text-success" id="myNav">
+            <ul class="list-unstyled navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/subjects" >Subjects</a>
+              </li>
+              <%if(User){ %>
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="/dashboard"><%=User.username%></a>
+                </li>
+             
+                <%}%>              
+                
+              </ul>
+              <!--the dropdown goes here-->
+              <%if(!User){ %>
+
+                  <ul class="navbar-nav nav-flex-icons mr-5 px-5">
+                    <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle waves-effect"  id="userDropdown" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  Login
+                </a>
+                
+                  <div class="dropdown-menu ">
+                    
+                    <div class="text-center">
+                      
+                      <div class="mx-auto pb-2 pl-3 pr-3" style="width: 370px; height: 240px;">
+                        <form action="/login" method="POST">
+                          <h1 class="mb-2">Login</h1>
+    
+                              <div>
+                                  <div class="input-group pb-1">
+                                      <div class="input-group-prepend">
+                                          <span class="input-group-text fa fa-user"></span>
+                                      </div>
+                                    <input type="email" name="email" id="username" placeholder="Email" class="form-control"> 
+                                  </div>
+                                  <span class="text-danger p-3 error" id="first" style="font-style: italic;"></span>
+                              </div>
+    
+          
+                              <div>
+                                  <div class="input-group pb-1">
+                                      <div class="input-group-prepend">
+                                          <span class="input-group-text fa fa-lock"></span>
+                                      </div>
+                                      <input type="password" name="password" id="password" placeholder="Password" class="form-control"> 
+                                  </div>
+                                  <span class="text-danger p-3 error" id="first" style="font-style: italic;"></span>
+                              </div>
+                          
+                              <button type="submit" class="btn btn-primary btn-md mb-3" id="loginBtn">Login</button>
+          
+                          </form>
+    
+                      </div>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="signup">Register</a>
+                    </li>
+                    <% }else{ %>
+                      <ul class="navbar-nav nav-flex-icons mr-5 px-5">
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle waves-effect" href="#" id="userDropdown" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user"></i> <span class="clearfix d-none d-sm-inline-block"></span></a>
+                      </a>
+          
+                        <div class="dropdown-menu ">
+                          <a class="dropdown-item" href="/dashboard">Dashboard</a>
+                          <a class="dropdown-item" href="/logout">Logout</a>
+                        </div>
+                          </li>
+                      </ul>
+                      <%}%>
+              </ul>
+              </div>
+          </div>   
+      </nav>
+    <!-- Sidebar navigation -->
+    <div id="slide-out" class="side-nav sn-bg-4 fixed">
+      <ul class="custom-scrollbar">
+
+       <!-- without this sidebar navigation div, the post creator will not work  .. Don't know why yet-->
+       
+      </ul>
+      <div class="sidenav-bg mask-strong"></div>
+    </div>
+    <!-- Sidebar navigation -->
+  
+      </div>
+  
+      <!--the navbar section ends here-->
+      
+       <!--the carousel section starts here-->
+ <% if(path == "/"){ %>
+  
+  <div id="home" style="height: 100vh;" class="view jarallax" data-jarallax='{"speed": 0.2}'
+      >
+      <div class="mask rgba-black-strong">
+        <div class="container h-100 d-flex justify-content-center align-items-center">
+          <div class="row smooth-scroll">
+            <div class="col-md-12 white-text text-center">
+              <%- include('./message.ejs') %> 
+              <div class="wow fadeInDown" data-wow-delay="0.2s">
+                <h2 class="display-3 font-weight-bold mb-2">Alpha</h2>
+                <hr class="hr-light">
+                <h3 class="subtext-header mt-4 mb-5">Test the <em>Dullness</em> of your brain.</h3>
+              </div>
+              <a href="/dashboard" data-offset="100" class="btn btn-white btn-rounded font-weight-bold dark-grey-text wow fadeInUp waves-effect waves-light" data-wow-delay="0.2s" style="visibility: visible; animation-name: fadeInUp; animation-delay: 0.2s;">Start Test</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <%}%>
+  
+<!--the carousel section ends here-->
+ 
+<main style="margin-top: 100px;" >

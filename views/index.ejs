@@ -1,0 +1,156 @@
+   
+     <%- include('./partials/header'); %>
+
+<!-- users & courses-->
+<div class="streak streak-photo streak-long-2" style="background-image: url('https://d12oja0ew7x0i8.cloudfront.net/image-handler/ts/20170809110503/ri/750/src/images/Article_Images/ImageForArticle_14334(1).jpg');">
+  <div class="flex-center mask rgba-blue-strong">
+    <div class="container text-center white-text">
+      
+      <!--First row-->
+      <div class="row text-white text-center wow fadeIn " data-wow-delay="0.2s" style="visibility: visible; animation-name: fadeIn; animation-delay: 0.2s;">
+    
+        
+        <!--First column-->
+        <div class="col-md-3 mt-2">
+          <h1 class="white-text font-weight-bold"><%=users.length%></h1>
+          <p>Registered Students</p>
+        </div>
+        <!--/First column-->
+        
+        <!--Second column-->
+        <div class="col-md-3 mt-2">
+          <h1 class="white-text font-weight-bold"><%=subjects.length%></h1>
+          <p>Subjects</p>
+        </div>
+        <!--/Second column-->
+
+        <!--Third column-->
+        <div class="col-md-3 mt-2">
+        <%let male = 0; let female = 0;%>
+        <% users.forEach(user=>{ %>
+        <% user.gender == "male" ? male ++ : female++ %>
+       <%  })%>
+          <h1 class="white-text font-weight-bold"><%=male%></h1>
+          <p>Males</p>
+        </div>
+        <!--/Third column-->
+        <!--Fourth column-->
+        <div class="col-md-3 mt-2">
+          <h1 class="white-text font-weight-bold"><%=female%></h1>
+          <p>Females</p>
+        </div>
+        <!--/Fourth column-->
+        
+     
+      </div>
+      <!--/First row-->
+
+    </div>
+  </div>
+</div>
+<!-- users & courses-->
+
+<!-- Five-->
+<!-- <div class="container">
+
+  <section class="my-4" id="products">
+
+
+    <div class="row mt-5 mb-4">
+      <div class="col-md-12">
+        <div class="divider-new">
+          <h3 class="text-center text-uppercase font-weight-bold mr-3 ml-3 wow fadeIn" data-wow-delay="0.2s" style="visibility: visible; animation-name: fadeIn; animation-delay: 0.2s;">BEST FIVE</h3>
+        </div>
+      </div>
+    </div>
+
+  
+    <div class="row wow fadeIn flex-center" data-wow-delay="0.4s" style="visibility: visible; animation-name: fadeIn; animation-delay: 0.4s;">
+    
+      <div class="col-lg-8 col-md-10">
+
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr class="table-success">
+                <th></th>
+                <th>Username</th>
+                <th>School</th>
+                <th>State</th>
+                <th>Points</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Tomato soup</td>
+                <td>400 ml</td>
+                <td>5 $</td>
+                <td>5 $</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Caesar salad</td>
+                <td>150 g</td>
+                <td>10 $</td>
+                <td>10 $</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Beef steak</td>
+                <td>200 g</td>
+                <td>200 g</td>
+                <td>15 $</td>
+              </tr>
+              <tr>
+                <th scope="row">4</th>
+                <td>Dumplings</td>
+                <td>6 pieces</td>
+                <td>8 $</td>
+                <td>8 $</td>
+              </tr>
+              <tr>
+                <th scope="row">5</th>
+                <td>Apple cake</td>
+                <td>80 g</td>
+                <td>80 g</td>
+                <td>6 $</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+       
+
+      </div>
+     
+    </div>
+  </section>
+
+</div> -->
+<!-- Five-->
+
+<hr class="between-sections mt-0 mb-4">
+
+<!--Streak-->
+<div class="streak streak-photo streak-md"
+style="background-image: url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8bGlicmFyeXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');">
+<div class="flex-center mask rgba-purple-light">
+  <div class="text-center white-text">  
+    <h2 class="h2-responsive my-5 pt-5"><i class="fas fa-quote-left" aria-hidden="true"></i> 
+    <%=data.text%> 
+      <!-- HADEETH API -->
+      <i class="fas fa-quote-right" aria-hidden="true">  </i> </h2>
+    <h5 class="text-center font-italic wow fadeIn" data-wow-delay="0.2s">  <%=data.author%></h5>
+  </div>
+</div>
+</div>
+<!--/Streak-->
+
+    
+     
+      
+ 
+  <hr class="between-sections mt-0 mb-4">
+              
+
+      <%- include('./partials/footer'); %>

@@ -1,0 +1,57 @@
+     <%- include('../partials/header'); %>
+<div class="container-fluid">
+    <%- include('../partials/message'); %>
+    <div class="row">
+        <div class="col-sm-3"><a class="btn btn-info" href="/back" role="button">Go Back</a></div>
+    </div>
+
+<section class="mb-5">
+    <div class="row " >
+       
+        <% subject.forEach(subject=>{ %>
+            <div class="col-md-6 mb-4">
+
+            <!-- Card -->
+           
+              <!-- Content -->
+               <% if(User){%>
+              <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                <div>
+                  <!-- href="/subjects/<%=subject._id%>/take-test" -->
+                  <h3 class="card-title pt-4 pb-3 font-weight-bold"><strong><%= subject.subjectname %></strong></h3>
+                  
+                   <%  if(User.subject_list.includes(subject._id)){ %>
+ <form  action="/subjects/<%=subject._id%>/unadd" method="POST">
+                  <button type="submit" class="btn btn-pink btn-rounded waves-effect waves-light" ><i class="fas fa-clone left"></i> Unregister</button>
+                      </form>
+                     <% }else {%>
+                    <form  action="/subjects/<%=subject._id%>/add" method="POST">
+                  <button type="submit" class="btn btn-pink btn-rounded waves-effect waves-light" ><i class="fas fa-clone left"></i> Register</button>
+                      </form>
+                        <% }%>
+                    <% if(User.userType == "admin"){%> 
+                        <a class="btn btn-pink btn-rounded waves-effect waves-light" href="/subjects/<%=subject.subjectname %>"><i class="fas fa-clone left"></i> View Details</a>
+                      <form action="/subjects/<%=subject._id%>?_method=DELETE" method="post">
+                          <button class="btn btn-pink btn-rounded waves-effect waves-light" ><i class="fas fa-trash left"></i> Delete</button>
+                        </form>
+                        <%}%>
+                    
+                </div>
+              </div>
+              <%}%>
+              <!-- Content -->
+            </div>
+            <!-- Card -->
+
+            
+            <%})%>
+        </div>
+ </section> 
+    </div>
+    <% if(User){%> 
+        <%if(User.userType == "admin"){%>
+            <a href="/subjects/new">Create new subject</a>
+            <%}%>
+            <%}%>
+</div>
+     <%- include('../partials/footer'); %>

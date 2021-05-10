@@ -1,0 +1,123 @@
+     <%- include('./partials/header'); %>
+     <div class="container-fluid">
+
+<%if(User.userType== "admin"){%>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid">
+                  <div class="row">
+                      <div class="col-sm-3"><a class="btn btn-info" href="/" role="button">Go Home</a></div>
+                  </div>
+                    <h1 class="mt-4">Admin Dashboard</h1>
+                    <%- include('./partials/message'); %>
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table mr-1"></i>
+                           List of Registered Students
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Username</th>
+                                            <th>Gender</th>
+                                            <th>Email</th>
+                                            <th>School</th>
+                                            <th>State</th>
+                                            
+                                          
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Username</th>
+                                            <th>Gender</th>
+                                            <th>Email</th>
+                                              <th>School</th>
+                                            <th>State</th>
+                                            
+                                            
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                      <% users.forEach((user)=>{%>
+                                          <% if( user.userType == "student"){ %>
+                                          <% if(user.gender == "male"){ %>
+                                              <tr class="text-info">
+                                                  <td><%=user.name%></td>
+                                                  <td><%=user.username%></td>
+                                                  <td><%=user.gender%></td>
+                                                  <td><%=user.email%></td>
+                                                  <td><%=user.school%></td>
+                                                  <td><%=user.state%></td>
+                                                
+                                          
+                                              </tr>
+                                         <% }else{ %>
+                                              <tr class="text-danger">
+                                                  <td><%=user.name%></td>
+                                                  <td><%=user.username%></td>
+                                                  <td><%=user.gender%></td>
+                                                  <td><%=user.email%></td>
+                                                  <td><%=user.school%></td>
+                                                  <td><%=user.state%></td>
+                                                 
+                                              </tr>
+                                        <%  }%>
+                                        <%  }%>
+                                        
+                                        <%})%>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+           
+        </div>
+    </div>
+<% }else{ %> 
+   
+<section class="mb-5"  style="height: 70vh;">
+    <%- include('./partials/message'); %>
+    <div class="row ">
+       <% if(user.subject_list.length == 0){ %>
+        <div class="text-black text-center d-flex align-items-center  py-5 px-4">
+            <div>
+              <h3 class="pt-4 pb-3 font-weight-bold"><strong> <span class="text-danger">OOPS!</span>  You are yet to register a subject, go to <a href="/subjects" title="🤣💪">subjects</a> to register a subject</strong></h3>
+              
+            </div>
+          </div>
+    <%}else{%>
+        <% user.subject_list.forEach(subject=>{ %>
+            <div class="col-md-6 mb-4">
+              <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                <div>
+                  <h3 class="card-title pt-4 pb-3 font-weight-bold"><strong><%= subject.subjectname %></strong></h3>
+                  <a href="/subjects/<%=subject._id%>/take-test" class="btn btn-pink btn-rounded waves-effect waves-light" ><i class="fas fa-clone left"></i> Take Test</a>
+                </div>
+              </div>
+            </div>
+            <!-- Card -->
+
+            <%})%>
+     <%   }%>
+        </div>
+ </section> 
+   
+    <% if(User){%> 
+        <%if(User.userType == "admin"){%>
+            <a href="/subjects/new">Create new subject</a>
+            <%}%>
+            <%}%>
+
+   
+                
+    <%}%>
+</div>
+         <%- include('./partials/footer'); %>

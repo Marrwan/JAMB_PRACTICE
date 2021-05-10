@@ -1,0 +1,1498 @@
+     <%- include('../partials/header'); %>
+<script>
+ function GetPQ(){      
+    fetch(`https://questions.aloc.ng/api/q/40?subject=<%=(subject.subjectname).toLowerCase()%>&type=utme`)
+   .then(res => res.json())
+   .then(res => res.data)
+    .then(function(q) {
+    questions = q;
+   })}
+ </script>
+<style>
+
+        * {
+    scroll-behavior: smooth;
+  }
+  .wrapper {
+    width: auto;
+    height: 100vh;
+    
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://gdurl.com/gJJK");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    backdrop-filter: opacity(80%);
+  }
+  .Container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+ 
+  .header {
+    text-align: center;
+  }
+  .header h1 {
+    font-family: "Raleway", sans-serif;
+    font-size: 4rem;
+    font-weight: 600;
+    letter-spacing: 0.2rem;
+    color: white;
+    padding: 45% 20px 8px;
+  }
+  .header p {
+    font-family: "Raleway", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.2rem;
+    color: white;
+    padding: 10px 15px;
+  }
+  /* button {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.15rem;
+    color: black;
+    background-color: #fff200;
+    padding: 20px 30px;
+    margin: 50px 5px 0;
+    border: none;
+    cursor: pointer;
+  } */
+  
+  input::-webkit-outer-spin-button,
+ input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+ }
+
+  /* Firefox */
+ input[type=number] {
+
+   -moz-appearance: textfield;
+
+  }
+
+   
+
+ /* importing google fonts */
+
+ @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+ *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+
+ }
+
+ 
+
+ .body{
+    background: #007bff;
+
+ }
+
+ 
+
+ ::selection{
+    color: #fff;
+    background: #007bff;
+
+ }
+
+ 
+
+ .start_btn,
+
+ .info_box,
+
+ .quiz_box,
+
+ .result_box{
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 
+                0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+ }
+
+ 
+
+ .info_box.activeInfo,
+
+ .quiz_box.activeQuiz,
+
+ .result_box.activeResult{
+    opacity: 1;
+    z-index: 5;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+
+ }
+
+ 
+
+ .start_btn button{
+    font-size: 25px;
+    font-weight: 500;
+    color: #007bff;
+    padding: 15px 30px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    background: #fff;
+    cursor: pointer;
+
+ }
+
+ 
+
+ .info_box{
+    width: 540px;
+    background: #fff;
+    border-radius: 5px;
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+
+ }
+
+ 
+
+ .info_box .info-title{
+    height: 60px;
+    width: 100%;
+    border-bottom: 1px solid lightgrey;
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+    border-radius: 5px 5px 0 0;
+    font-size: 20px;
+    font-weight: 600;
+
+ }
+
+ 
+
+ .info_box .info-list{
+    padding: 15px 30px;
+
+ }
+
+ 
+
+ .info_box .info-list .info{
+
+     margin: 5px 0;
+
+     font-size: 17px;
+
+ }
+
+ 
+
+ .info_box .info-list .info span{
+
+     font-weight: 600;
+
+     color: #007bff;
+
+ }
+
+ .info_box .buttons{
+
+     height: 60px;
+
+     display: flex;
+
+     align-items: center;
+
+     justify-content: flex-end;
+
+     padding: 0 30px;
+
+     border-top: 1px solid lightgrey;
+
+ }
+
+ 
+
+ .info_box .buttons button{
+
+     margin: 0 5px;
+
+     height: 40px;
+
+     width: 100px;
+
+     font-size: 16px;
+
+     font-weight: 500;
+
+     cursor: pointer;
+
+     border: none;
+
+     outline: none;
+
+     border-radius: 5px;
+
+     border: 1px solid #007bff;
+
+     transition: all 0.3s ease;
+
+ }
+
+ 
+
+ .quiz_box{
+
+     width: 550px;
+
+     background: #fff;
+
+     border-radius: 5px;
+
+     transform: translate(-50%, -50%) scale(0.9);
+
+     opacity: 0;
+
+     pointer-events: none;
+
+     transition: all 0.3s ease;
+
+ }
+
+ 
+
+ .quiz_box header{
+
+     position: relative;
+
+     z-index: 2;
+
+     height: 70px;
+
+     padding: 0 30px;
+
+     background: #fff;
+
+     border-radius: 5px 5px 0 0;
+
+     display: flex;
+
+     align-items: center;
+
+     justify-content: space-between;
+
+     box-shadow: 0px 3px 5px 1px rgba(0,0,0,0.1);
+
+ }
+
+ 
+
+ .quiz_box header .title{
+
+     font-size: 20px;
+
+     font-weight: 600;
+
+ }
+
+ 
+
+ .quiz_box header .timer{
+
+     color: #004085;
+
+     background: #cce5ff;
+
+     border: 1px solid #b8daff;
+
+     height: 45px;
+
+     padding: 0 8px;
+
+     border-radius: 5px;
+
+     display: flex;
+
+     align-items: center;
+
+     justify-content: space-between;
+
+     width: 145px;
+
+ }
+
+ 
+
+ .quiz_box header .timer .time_left_txt{
+
+     font-weight: 400;
+
+     font-size: 17px;
+
+     user-select: none;
+
+ }
+
+ 
+
+ .quiz_box header .timer .timer_sec{
+
+     font-size: 18px;
+
+     font-weight: 500;
+
+     height: 30px;
+
+     width: 45px;
+
+     color: #fff;
+
+     border-radius: 5px;
+
+     line-height: 30px;
+
+     text-align: center;
+
+     background: #343a40;
+
+     border: 1px solid #343a40;
+
+     user-select: none;
+
+ }
+
+ 
+
+ .quiz_box header .time_line{
+
+     position: absolute;
+
+     bottom: 0px;
+
+     left: 0px;
+
+     height: 3px;
+
+     background: #007bff;
+
+ }
+
+ 
+
+ section{
+
+     padding: 25px 30px 20px 30px;
+
+     background: #fff;
+
+ }
+
+ 
+
+ section .que_text{
+
+     font-size: 25px;
+
+     font-weight: 600;
+
+ }
+
+ 
+
+ section .option_list{
+
+     padding: 20px 0px;
+
+     display: block;   
+
+ }
+
+ 
+
+ section .option_list .option{
+
+     background: aliceblue;
+
+     border: 1px solid #84c5fe;
+
+     border-radius: 5px;
+
+     padding: 8px 15px;
+
+     font-size: 17px;
+
+     margin-bottom: 15px;
+
+     cursor: pointer;
+
+     transition: all 0.3s ease;
+
+     display: flex;
+
+     align-items: center;
+
+     justify-content: space-between;
+
+ }
+
+ 
+
+ section .option_list .option:last-child{
+
+     margin-bottom: 0px;
+
+ }
+
+ 
+
+ section .option_list .option:hover{
+
+     color: #004085;
+
+     background: #cce5ff;
+
+     border: 1px solid #b8daff;
+
+ }
+
+ 
+
+ section .option_list .option.correct{
+
+     color: #155724;
+
+     background: #d4edda;
+
+     border: 1px solid #c3e6cb;
+
+ }
+
+ 
+
+ section .option_list .option.incorrect{
+
+     color: #721c24;
+
+     background: #f8d7da;
+
+     border: 1px solid #f5c6cb;
+
+ }
+
+ 
+
+ section .option_list .option.disabled{
+
+     pointer-events: none;
+
+ }
+
+ 
+
+ section .option_list .option .icon{
+
+     height: 26px;
+
+     width: 26px;
+
+     border: 2px solid transparent;
+
+     border-radius: 50%;
+
+     text-align: center;
+
+     font-size: 13px;
+
+     pointer-events: none;
+
+     transition: all 0.3s ease;
+
+     line-height: 24px;
+
+ }
+
+ .option_list .option .icon.tick{
+
+     color: #23903c;
+
+     border-color: #23903c;
+
+     background: #d4edda;
+
+ }
+
+ 
+
+ .option_list .option .icon.cross{
+
+     color: #a42834;
+
+     background: #f8d7da;
+
+     border-color: #a42834;
+
+ }
+
+ 
+
+ footer{
+
+     height: 60px;
+
+     padding: 0 30px;
+
+     display: flex;
+
+     align-items: center;
+
+     justify-content: space-between;
+
+     border-top: 1px solid lightgrey;
+
+ }
+
+ 
+
+ footer .total_que span{
+
+     display: flex;
+
+     user-select: none;
+
+ }
+
+ 
+
+ footer .total_que span p{
+
+     font-weight: 500;
+
+     padding: 0 5px;
+
+ }
+
+ 
+
+ footer .total_que span p:first-child{
+
+     padding-left: 0px;
+
+ }
+
+ 
+
+ footer button{
+
+     height: 40px;
+
+     padding: 0 13px;
+
+     font-size: 18px;
+
+     font-weight: 400;
+
+     cursor: pointer;
+
+     border: none;
+
+     outline: none;
+
+     color: #fff;
+
+     border-radius: 5px;
+
+     background: #007bff;
+
+     border: 1px solid #007bff;
+
+     line-height: 10px;
+
+     opacity: 0;
+
+     pointer-events: none;
+
+     transform: scale(0.95);
+
+     transition: all 0.3s ease;
+
+ }
+
+ 
+
+ footer button:hover{
+
+     background: #0263ca;
+
+ }
+
+ 
+
+ footer button.show{
+
+     opacity: 1;
+
+     pointer-events: auto;
+
+     transform: scale(1);
+
+ }
+
+ 
+
+ .result_box{
+
+     background: #fff;
+
+     border-radius: 5px;
+
+     display: flex;
+
+     padding: 25px 30px;
+
+     width: 450px;
+
+     align-items: center;
+
+     flex-direction: column;
+
+     justify-content: center;
+
+     transform: translate(-50%, -50%) scale(0.9);
+
+     opacity: 0;
+
+     pointer-events: none;
+
+     transition: all 0.3s ease;
+
+ }
+
+ 
+
+ .result_box .icon{
+
+     font-size: 100px;
+
+     color: #007bff;
+
+     margin-bottom: 10px;
+
+ }
+
+ 
+
+ .result_box .complete_text{
+
+     font-size: 20px;
+
+     font-weight: 500;
+
+ }
+
+ 
+
+ .result_box .score_text span{
+
+     display: flex;
+
+     margin: 10px 0;
+
+     font-size: 18px;
+
+     font-weight: 500;
+
+ }
+
+ 
+
+ .result_box .score_text span p{
+
+     padding: 0 4px;
+
+     font-weight: 600;
+
+ }
+
+ 
+
+ .result_box .buttons{
+
+     display: flex;
+
+     margin: 20px 0;
+
+ }
+
+ 
+
+ .result_box .buttons button{
+
+     margin: 0 10px;
+
+     height: 45px;
+
+     padding: 0 20px;
+
+     font-size: 18px;
+
+     font-weight: 500;
+
+     cursor: pointer;
+
+     border: none;
+
+     outline: none;
+
+     border-radius: 5px;
+
+     border: 1px solid #007bff;
+
+     transition: all 0.3s ease;
+
+ }
+
+ 
+
+ .buttons button.restart{
+
+     color: #fff;
+
+     background: #007bff;
+
+ }
+
+ 
+
+ .buttons button.restart:hover{
+
+     background: #0263ca;
+
+ }
+
+ 
+
+ .buttons button.quit{
+
+     color: #007bff;
+
+     background: #fff;
+
+ }
+
+ 
+
+ .buttons button.quit:hover{
+
+     color: #fff;
+
+     background: #007bff;
+
+ }
+</style>
+
+<body class="body"  >
+    <!-- start Quiz button -->
+    <div class="start_btn"><button>Start Test </button></div>
+
+    <!-- Info Box -->
+    <div class="info_box">
+        <div class="info-title"><span>Some Rules of this Exam</span></div>
+        <div class="info-list">
+            <div class="info">1. There are forty (40) questions.</div>
+            <div class="info">2. You have only <span> 60 seconds</span> per question.</div>
+            <div class="info">4. You can't pick more than one answer, so think well.</div>
+            <div class="info">5. This is not how the real JAMB is .</div>
+            <div class="info">6. If You do not see any question, reload the page! </div>
+            <div class="info">7. Having any trouble, contact the management(Check the footer).</div>
+            <div class="info">8.Still Updating some changes on the website. Meanwhile, catch cruize! .</div>
+        </div>
+        <div class="buttons">
+            <button class="quit">Exit Test</button>
+            <button class="restart">Continue</button>
+        </div>
+    </div>
+
+    <!-- Quiz Box -->
+    
+    <div class="quiz_box">
+        <header>
+            <div class="title">AWESOME JAMB PRACTICE</div>
+            <div class="timer">
+                <div class="time_left_txt">Time Left</div>
+                <div class="timer_sec">60</div>
+            </div>
+            <div class="time_line"></div>
+        </header>
+        <section>
+            <div class="que_text">
+            
+                <!-- Here I've inserted question from JavaScript -->
+                <span></span>
+            </div>
+            <div class="option_list">
+                <!-- Here I've inserted options from JavaScript -->
+               
+            </div>
+        </section>
+        <!-- footer of Quiz Box -->
+        <footer>
+            <div class="total_que">
+                <!-- Here I've inserted Question Count Number from JavaScript -->
+            </div>
+            <button class="next_btn">Next Que</button>
+        </footer>
+    </div>
+
+
+    <!-- Result Box -->
+    <div class="result_box">
+        <div class="icon">
+            <i class="fas fa-crown"></i>
+        </div>
+        <div class="complete_text">You've completed the Quiz!</div>
+        <div class="score_text">
+            <!-- Here I've inserted Score Result from JavaScript -->
+        </div>
+        <div class="buttons" id="ppp">
+            <button style="opacity: 0;" disabled class="restart"></button>
+            <button style="opacity: 0;" disabled class="quit"></button>
+           
+        </div>
+    </div>
+
+
+</body>
+<script>
+    // creating an array and passing the number, questions, options, and answers
+let questions = [
+    {
+    numb: 1,
+    question: "What does HTML stand for?",
+    answer: "Hyper Text Markup Language",
+    options: [
+      "Hyper Text Preprocessor",
+      "Hyper Text Markup Language",
+      "Hyper Text Multiple Language",
+      "Hyper Tool Multi Language"
+    ]
+  },
+    {
+    numb: 2,
+    question: "What does CSS stand for?",
+    answer: "Cascading Style Sheet",
+    options: [
+      "Common Style Sheet",
+      "Colorful Style Sheet",
+      "Computer Style Sheet",
+      "Cascading Style Sheet"
+    ]
+  },
+    {
+    numb: 3,
+    question: "What does PHP stand for?",
+    answer: "Hypertext Preprocessor",
+    options: [
+      "Hypertext Preprocessor",
+      "Hypertext Programming",
+      "Hypertext Preprogramming",
+      "Hometext Preprocessor"
+    ]
+  },
+    {
+    numb: 4,
+    question: "What does SQL stand for?",
+    answer: "Structured Query Language",
+    options: [
+      "Stylish Question Language",
+      "Stylesheet Query Language",
+      "Statement Question Language",
+      "Structured Query Language"
+    ]
+  },
+    {
+    numb: 5,
+    question: "What does XML stand for?",
+    answer: "eXtensible Markup Language",
+    options: [
+      "eXtensible Markup Language",
+      "eXecutable Multiple Language",
+      "eXTra Multi-Program Language",
+      "eXamine Multiple Language"
+    ]
+  },
+  // you can uncomment the below codes and make duplicate as more as you want to add question
+  // but remember you need to give the numb value serialize like 1,2,3,5,6,7,8,9.....
+
+  //   {
+  //   numb: 6,
+  //   question: "Your Question is Here",
+  //   answer: "Correct answer of the question is here",
+  //   options: [
+  //     "Option 1",
+  //     "option 2",
+  //     "option 3",
+  //     "option 4"
+  //   ]
+  // },
+];
+
+</script>
+
+ <!-- <script>
+
+
+    fetch('<%=subject.subjecturl%>')
+    .then(res => res.json())
+    .then(res => res.data)
+    .then(function(questions) {
+    var examTime = (((2 * 3600) + (45 * 60))/4)/questions.length
+   console.log(questions);
+    //selecting all required elements
+const start_btn = document.querySelector(".start_btn button");
+const info_box = document.querySelector(".info_box");
+const exit_btn = info_box.querySelector(".buttons .quit");
+const continue_btn = info_box.querySelector(".buttons .restart");
+const quiz_box = document.querySelector(".quiz_box");
+const result_box = document.querySelector(".result_box");
+const option_list = document.querySelector(".option_list");
+const time_line = document.querySelector("header .time_line");
+const timeText = document.querySelector(".timer .time_left_txt");
+const timeCount = document.querySelector(".timer .timer_sec");
+
+// if startQuiz button clicked
+start_btn.onclick = ()=>{
+    info_box.classList.add("activeInfo"); //show info box
+}
+
+// if exitQuiz button clicked
+exit_btn.onclick = ()=>{
+    info_box.classList.remove("activeInfo"); //hide info box
+}
+
+// if continueQuiz button clicked
+continue_btn.onclick = ()=>{
+    info_box.classList.remove("activeInfo"); //hide info box
+    quiz_box.classList.add("activeQuiz"); //show quiz box
+    showQuetions(0); //calling showQestions function
+    queCounter(1); //passing 1 parameter to queCounter
+    startTimer(parseInt(examTime)); //calling startTimer function
+    startTimerLine(0); //calling startTimerLine function
+}
+
+let timeValue =  parseInt(examTime);
+let que_count = 0;
+let que_numb = 1;
+let userScore = 0;
+let counter;
+let counterLine;
+let widthValue = 0;
+
+const restart_quiz = result_box.querySelector(".buttons .restart");
+const quit_quiz = result_box.querySelector(".buttons .quit");
+
+// if restartQuiz button clicked
+restart_quiz.onclick = ()=>{
+    quiz_box.classList.add("activeQuiz"); //show quiz box
+    result_box.classList.remove("activeResult"); //hide result box
+    timeValue =  parseInt(examTime);; 
+    que_count = 0;
+    que_numb = 1;
+    userScore = 0;
+    widthValue = 0;
+    showQuetions(que_count); //calling showQestions function
+    queCounter(que_numb); //passing que_numb value to queCounter
+    clearInterval(counter); //clear counter
+    clearInterval(counterLine); //clear counterLine
+    startTimer(timeValue); //calling startTimer function
+    startTimerLine(widthValue); //calling startTimerLine function
+    timeText.textContent = "Time Left"; //change the text of timeText to Time Left
+    next_btn.classList.remove("show"); //hide the next button
+}
+
+// if quitQuiz button clicked
+quit_quiz.onclick = ()=>{
+    window.location.reload(); //reload the current window
+}
+
+const next_btn = document.querySelector("footer .next_btn");
+const bottom_ques_counter = document.querySelector("footer .total_que");
+
+// if Next Que button clicked
+next_btn.onclick = ()=>{
+    if(que_count < questions.length - 1){ //if question count is less than total question length
+        que_count++; //increment the que_count value
+        que_numb++; //increment the que_numb value
+        showQuetions(que_count); //calling showQestions function
+        queCounter(que_numb); //passing que_numb value to queCounter
+        clearInterval(counter); //clear counter
+        clearInterval(counterLine); //clear counterLine
+        startTimer(timeValue); //calling startTimer function
+        startTimerLine(widthValue); //calling startTimerLine function
+        timeText.textContent = "Time Left"; //change the timeText to Time Left
+        next_btn.classList.remove("show"); //hide the next button
+    }else{
+        clearInterval(counter); //clear counter
+        clearInterval(counterLine); //clear counterLine
+        showResult(); //calling showResult function
+    }
+}
+
+// getting questions and options from array
+function showQuetions(index){
+    const que_text = document.querySelector(".que_text");
+
+    //creating a new span and div tag for question and option and passing the value using array index
+       let que_tag = '<span>'+ (index + 1 )+ ". " + questions[index].question +'</span>';
+    let option_tag = '<div class="option"><span>'+ questions[index].option.a +'</span></div>'
+    + '<div class="option"><span>'+ questions[index].option.b +'</span></div>'
+    + '<div class="option"><span>'+ questions[index].option.c +'</span></div>'
+    + '<div class="option"><span>'+ questions[index].option.d +'</span></div>'
+
+    que_text.innerHTML = que_tag; //adding new span tag inside que_tag
+    option_list.innerHTML = option_tag; //adding new div tag inside option_tag
+    
+    const option = option_list.querySelectorAll(".option");
+
+    // set onclick attribute to all available options
+    
+    option.forEach((option)=>{
+        option.addEventListener('click', optionSelected(this))
+    })
+    // for(i=0; i < option.length; i++){
+    //         option[i].setAttribute("onclick", "optionSelected(this)");
+    //     }
+}
+// creating the new div tags which for icons
+let tickIconTag = '<div class="icon tick"><i class="fas fa-check"></i></div>';
+let crossIconTag = '<div class="icon cross"><i class="fas fa-times"></i></div>';
+
+
+//if user clicked on option
+const optionSelected=(answer)=>{
+    
+    clearInterval(counter); //clear counter
+    clearInterval(counterLine); //clear counterLine
+    console.log(answer);
+    let userAns = answer.textContent; //getting user selected option
+    let correcAns = questions[que_count].option[questions[que_count].answer]; //getting correct answer from array
+    const allOptions = option_list.children.length; //getting all option items
+    
+    if(userAns == correcAns){ //if user selected option is equal to array's correct answer
+        userScore += 1; //upgrading score value with 1
+        console.log(answer);
+        answer.classList.add("correct"); //adding green color to correct selected option
+        answer.insertAdjacentHTML("beforeend", tickIconTag); //adding tick icon to correct selected option
+        console.log("Correct Answer");
+        console.log("Your correct answers = " + userScore);
+    }else{
+        console.log(answer);
+        answer.classList.add("incorrect"); //adding red color to correct selected option
+        answer.insertAdjacentHTML("beforeend", crossIconTag); //adding cross icon to correct selected option
+        console.log("Wrong Answer");
+
+        for(i=0; i < allOptions; i++){
+            if(option_list.children[i].textContent == correcAns){ //if there is an option which is matched to an array answer 
+                option_list.children[i].setAttribute("class", "option correct"); //adding green color to matched option
+                option_list.children[i].insertAdjacentHTML("beforeend", tickIconTag); //adding tick icon to matched option
+                console.log("Auto selected correct answer.");
+            }
+        }
+    }
+    for(i=0; i < allOptions; i++){
+        option_list.children[i].classList.add("disabled"); //once user select an option then disabled all options
+    }
+    next_btn.classList.add("show"); //show the next button if user selected any option
+}
+
+function showResult(){
+    info_box.classList.remove("activeInfo"); //hide info box
+    quiz_box.classList.remove("activeQuiz"); //hide quiz box
+    result_box.classList.add("activeResult"); //show result box
+    const scoreText = result_box.querySelector(".score_text");
+    if (userScore > 3){ // if user scored more than 3
+        //creating a new span tag and passing the user score number and total question number
+        let scoreTag = '<span>and congrats! 🎉, You got <p>'+ userScore +'</p> out of <p>'+ questions.length +'</p></span>';
+        scoreText.innerHTML = scoreTag;  //adding new span tag inside score_Text
+    }
+    else if(userScore > 1){ // if user scored more than 1
+        let scoreTag = '<span>and nice 😎, You got <p>'+ userScore +'</p> out of <p>'+ questions.length +'</p></span>';
+        scoreText.innerHTML = scoreTag;
+    }
+    else{ // if user scored less than 1
+        let scoreTag = '<span>and sorry 😐, You got only <p>'+ userScore +'</p> out of <p>'+ questions.length +'</p></span>';
+        scoreText.innerHTML = scoreTag;
+    }
+}
+
+function startTimer(time){
+    counter = setInterval(timer, 1000);
+    function timer(){
+        timeCount.textContent = time; //changing the value of timeCount with time value
+        time--; //decrement the time value
+        if(time < 9){ //if timer is less than 9
+            let addZero = timeCount.textContent; 
+            timeCount.textContent = "0" + addZero; //add a 0 before time value
+        }
+        if(time < 0){ //if timer is less than 0
+            clearInterval(counter); //clear counter
+            timeText.textContent = "Time Off"; //change the time text to time off
+            const allOptions = option_list.children.length; //getting all option items
+            let correcAns = questions[que_count].Answer; //getting correct answer from array
+            for(i=0; i < allOptions; i++){
+                if(option_list.children[i].textContent == correcAns){ //if there is an option which is matched to an array answer
+                    option_list.children[i].setAttribute("class", "option correct"); //adding green color to matched option
+                    option_list.children[i].insertAdjacentHTML("beforeend", tickIconTag); //adding tick icon to matched option
+                    console.log("Time Off: Auto selected correct answer.");
+                }
+            }
+            for(i=0; i < allOptions; i++){
+                option_list.children[i].classList.add("disabled"); //once user select an option then disabled all options
+            }
+            next_btn.classList.add("show"); //show the next button if user selected any option
+        }
+    }
+}
+
+function startTimerLine(time){
+    counterLine = setInterval(timer, 29);
+    function timer(){
+        time += 1; //upgrading time value with 1
+        time_line.style.width = time + "px"; //increasing width of time_line with px by time value
+        if(time > 549){ //if time value is greater than 549
+            clearInterval(counterLine); //clear counterLine
+        }
+    }
+}
+
+function queCounter(index){
+    //creating a new span tag and passing the question number and total question
+    let totalQueCounTag = '<span><p>'+ index +'</p> of <p>'+ questions.length +'</p> Questions</span>';
+    bottom_ques_counter.innerHTML = totalQueCounTag;  //adding new span tag inside bottom_ques_counter
+}
+    })
+</script>  -->
+
+ 
+ <script>
+     GetPQ()
+     var examTime = 60;
+   
+     //selecting all required elements
+const start_btn = document.querySelector(".start_btn button");
+const info_box = document.querySelector(".info_box");
+const exit_btn = info_box.querySelector(".buttons .quit");
+const continue_btn = info_box.querySelector(".buttons .restart");
+const quiz_box = document.querySelector(".quiz_box");
+const result_box = document.querySelector(".result_box");
+const option_list = document.querySelector(".option_list");
+const time_line = document.querySelector("header .time_line");
+const timeText = document.querySelector(".timer .time_left_txt");
+const timeCount = document.querySelector(".timer .timer_sec");
+
+// if startQuiz button clicked
+start_btn.onclick = ()=>{
+    info_box.classList.add("activeInfo"); //show info box
+}
+
+// if exitQuiz button clicked
+exit_btn.onclick = ()=>{
+    info_box.classList.remove("activeInfo"); //hide info box
+}
+
+// if continueQuiz button clicked
+continue_btn.onclick = ()=>{
+    info_box.classList.remove("activeInfo"); //hide info box
+    quiz_box.classList.add("activeQuiz"); //show quiz box
+    showQuetions(0); //calling showQestions function
+    queCounter(1); //passing 1 parameter to queCounter
+    startTimer(60); //calling startTimer function
+    startTimerLine(0); //calling startTimerLine function
+}
+
+let timeValue =  examTime;
+let que_count = 0;
+let que_numb = 1;
+let userScore = 0;
+let counter;
+let counterLine;
+let widthValue = 0;
+
+const restart_quiz = result_box.querySelector(".buttons .restart");
+const quit_quiz = result_box.querySelector(".buttons .quit");
+
+// if restartQuiz button clicked
+restart_quiz.onclick = ()=>{
+    quiz_box.classList.add("activeQuiz"); //show quiz box
+    result_box.classList.remove("activeResult"); //hide result box
+    timeValue = 60; 
+    que_count = 0;
+    que_numb = 1;
+    userScore = 0;
+    widthValue = 0;
+    showQuetions(que_count); //calling showQestions function
+    queCounter(que_numb); //passing que_numb value to queCounter
+    clearInterval(counter); //clear counter
+    clearInterval(counterLine); //clear counterLine
+    startTimer(timeValue); //calling startTimer function
+    startTimerLine(widthValue); //calling startTimerLine function
+    timeText.textContent = "Time Left"; //change the text of timeText to Time Left
+    next_btn.classList.remove("show"); //hide the next button
+}
+
+// if quitQuiz button clicked
+quit_quiz.onclick = ()=>{
+    window.location.reload(); //reload the current window
+}
+
+const next_btn = document.querySelector("footer .next_btn");
+const bottom_ques_counter = document.querySelector("footer .total_que");
+
+// if Next Que button clicked
+next_btn.onclick = ()=>{
+    if(que_count < questions.length - 1){ //if question count is less than total question length
+        que_count++; //increment the que_count value
+        que_numb++; //increment the que_numb value
+        showQuetions(que_count); //calling showQestions function
+        queCounter(que_numb); //passing que_numb value to queCounter
+        clearInterval(counter); //clear counter
+        clearInterval(counterLine); //clear counterLine
+        startTimer(timeValue); //calling startTimer function
+        startTimerLine(widthValue); //calling startTimerLine function
+        timeText.textContent = "Time Left"; //change the timeText to Time Left
+        next_btn.classList.remove("show"); //hide the next button
+    }else{
+        clearInterval(counter); //clear counter
+        clearInterval(counterLine); //clear counterLine
+        showResult(); //calling showResult function
+    }
+}
+
+// getting questions and options from array
+function showQuetions(index){
+    const que_text = document.querySelector(".que_text");
+
+    //creating a new span and div tag for question and option and passing the value using array index
+    let que_tag = '<p> '+ questions[index].section + ' <p> '+ '<span>'+ (index + 1) + ". " + questions[index].question +'</span>';
+    let option_tag = '<div class="option"><span>'+ questions[index].option.a +'</span></div>'
+    + '<div class="option"><span>'+ questions[index].option.b +'</span></div>'
+    + '<div class="option"><span>'+ questions[index].option.c +'</span></div>'
+    + '<div class="option  "><span>'+ questions[index].option.d +'</span></div>';
+    que_text.innerHTML = que_tag; //adding new span tag inside que_tag
+    option_list.innerHTML = option_tag; //adding new div tag inside optiaon_tag
+    
+    const option = option_list.querySelectorAll(".option");
+
+    // set onclick attribute to all available options
+    for(i=0; i < option.length; i++){
+        option[i].setAttribute("onclick", "optionSelected(this)");
+    }
+}
+// creating the new div tags which for icons
+let tickIconTag = '<div class="icon tick"><i class="fas fa-check"></i></div>';
+let crossIconTag = '<div class="icon cross"><i class="fas fa-times"></i></div>';
+
+//if user clicked on option
+function optionSelected(answer){
+    clearInterval(counter); //clear counter
+    clearInterval(counterLine); //clear counterLine
+    let userAns = answer.textContent; //getting user selected option
+    let correcAns =  questions[que_count].option[questions[que_count].answer] //getting correct answer from array
+    const allOptions = option_list.children.length; //getting all option items
+    
+    if(userAns == correcAns){ //if user selected option is equal to array's correct answer
+        userScore += 1; //upgrading score value with 1
+        answer.classList.add("correct"); //adding green color to correct selected option
+        answer.insertAdjacentHTML("beforeend", tickIconTag); //adding tick icon to correct selected option
+        console.log("Correct Answer");
+        console.log("Your correct answers = " + userScore);
+    }else{
+        answer.classList.add("incorrect"); //adding red color to correct selected option
+        answer.insertAdjacentHTML("beforeend", crossIconTag); //adding cross icon to correct selected option
+        console.log("Wrong Answer");
+
+        for(i=0; i < allOptions; i++){
+            if(option_list.children[i].textContent == correcAns){ //if there is an option which is matched to an array answer 
+                option_list.children[i].setAttribute("class", "option correct"); //adding green color to matched option
+                option_list.children[i].insertAdjacentHTML("beforeend", tickIconTag); //adding tick icon to matched option
+                console.log("Auto selected correct answer.");
+            }
+        }
+    }
+    for(i=0; i < allOptions; i++){
+        option_list.children[i].classList.add("disabled"); //once user select an option then disabled all options
+    }
+    next_btn.classList.add("show"); //show the next button if user selected any option
+}
+
+function showResult(){
+    
+    info_box.classList.remove("activeInfo"); //hide info box
+    quiz_box.classList.remove("activeQuiz"); //hide quiz box
+    result_box.classList.add("activeResult"); //show result box
+    const scoreText = result_box.querySelector(".score_text");
+
+    function GFG_Fun(score) {
+     
+                // Create a form synamically
+                var form = document.createElement("form");
+                form.setAttribute("method", "post");
+                form.setAttribute("action", `/subjects/<%=subject._id%>/score/${score}`);
+              
+                            // create a submit button
+                            var s = document.createElement("BUTTON");
+                            s.setAttribute("type", "submit");
+                            s.setAttribute("name", "Submit");
+                            s.setAttribute("class", "btn btn-primary")
+                            s.appendChild(document.createTextNode("SUBMIT"));
+                              
+                              
+                            // Append the submit button to the form
+                            form.appendChild(s); 
+              
+                            document.getElementById('ppp')
+                           .appendChild(form);
+}
+GFG_Fun(userScore)
+    if (userScore > 26){ // if user scored more than 26
+        //creating a new span tag and passing the user score number and total question number
+        let scoreTag = `<span>Congrats! 🎉🎉, You got ${userScore} out of  ${questions.length}, keep it up. </span>`;
+        scoreText.innerHTML = scoreTag;  //adding new span tag inside score_Text
+    }
+    else if(userScore > 19){ // if user scored more than 19
+        let scoreTag = `<span>Nice 👍, You got ${userScore} out of  ${questions.length}, put more effort. </span>`;
+        scoreText.innerHTML = scoreTag;
+    }
+    else{ // if user scored 19 or less than 
+        let scoreTag = `<span>WTF! 😲 , You got only ${userScore} out of  ${questions.length} , you need to read your books</span>`;
+        scoreText.innerHTML = scoreTag;
+    }
+}
+
+function startTimer(time){
+    counter = setInterval(timer, 1000);
+    function timer(){
+        timeCount.textContent = time; //changing the value of timeCount with time value
+        time--; //decrement the time value
+        if(time < 9){ //if timer is less than 9
+            let addZero = timeCount.textContent; 
+            timeCount.textContent = "0" + addZero; //add a 0 before time value
+        }
+        if(time < 0){ //if timer is less than 0
+            clearInterval(counter); //clear counter
+            timeText.textContent = "Time Off"; //change the time text to time off
+            const allOptions = option_list.children.length; //getting all option items
+            let correcAns = questions[que_count].option[questions[que_count].answer]; //getting correct answer from array
+            for(i=0; i < allOptions; i++){
+                if(option_list.children[i].textContent == correcAns){ //if there is an option which is matched to an array answer
+                    option_list.children[i].setAttribute("class", "option correct"); //adding green color to matched option
+                    option_list.children[i].insertAdjacentHTML("beforeend", tickIconTag); //adding tick icon to matched option
+                    
+                }
+            }
+            for(i=0; i < allOptions; i++){
+                option_list.children[i].classList.add("disabled"); //once user select an option then disabled all options
+            }
+            next_btn.classList.add("show"); //show the next button if user selected any option
+        }
+    }
+}
+
+function startTimerLine(time){
+    counterLine = setInterval(timer, 110);
+    function timer(){
+        time += 1; //upgrading time value with 1
+        time_line.style.width = time + "px"; //increasing width of time_line with px by time value
+        if(time > 549){ //if time value is greater than 549
+            clearInterval(counterLine); //clear counterLine
+        }
+    }
+}
+
+function queCounter(index){
+    //creating a new span tag and passing the question number and total question
+    let totalQueCounTag = '<span><p>'+ index +'</p> of <p>'+ questions.length +'</p> Questions</span>';
+    bottom_ques_counter.innerHTML = totalQueCounTag;  //adding new span tag inside bottom_ques_counter
+}
+
+ </script>
+
+     
+</main>
+
+      <script src="/js/jquery-3.5.1.min.js"></script>
+      <script src="/js/popper.min.js"></script>
+      <script src="/js/bootstrap.min.js"></script>
+      <script src="/js/mdb.min.js"></script>      
+       <!-- TinyMCE -->
+  <script type="text/javascript" src="/js/vendor/tinymce/tinymce.min.js"></script>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+  
+      <script>
+        window.addEventListener('scroll', function(){
+      const scrollHeight = this.window.pageYOffset;
+      const scrollLink = this.document.querySelector('.scroll-link');
+  
+      if(scrollHeight > 600){
+          scrollLink.classList.add('show');
+      }else{
+          scrollLink.classList.remove('show');
+      }
+      
+  });
+      </script>
+      <!-- Custom scripts -->
+  <script>
+
+    // SideNav Initialization
+    $(".button-collapse").sideNav();
+
+    var container = document.querySelector('.custom-scrollbar');
+    var ps = new PerfectScrollbar(container, {
+      wheelSpeed: 2,
+      wheelPropagation: true,
+      minScrollbarLength: 20
+    });
+
+    // TinyMCE Initialization
+    tinymce.init({ 
+    selector:'#post_content',
+     menubar: true, 
+     height : "294" , 
+      plugins: 'code,lists, link, image, media, hr, preview, insertdatetime,print, spellchecker, template, toc, wordcount, table, charmap,  '});
+
+</script>
+
+  </script>
+  </body>
+  </html>
+
+
+
+ 
+
+
+ 
+
+
+   
+  <!-- Navigation -->
+
+ 
+    <!-- SCRIPTS -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+     -->
+    <!-- JQuery -->
+   
