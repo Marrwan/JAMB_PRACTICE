@@ -1,99 +1,97 @@
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 
-
 // LOAD MODELS
 const User = require("../models/User");
+const AppError = require("../utilities/appError");
 
 exports.getSignupForm = (req, res) => {
   res.render("signup");
 };
-exports.signupHandler = (req, res, next) => {
- 
-  const {
-    name,
-    username,
-    school,
-    state,
-    email,
-    password,
-    confirm,
-    gender,
-    userType,
-  } = req.body;
-
-  let errors = [];
-
-  if (
-    !name ||
-    !username ||
-    !email ||
-    !state ||
-    !school ||
-    !password ||
-    !confirm ||
-    !userType ||
-    !gender
-  ) {
-    errors.push({ msg: "Please fill in all fields" });
-  }
-
-  if (password.length <= 5) {
-    errors.push({ msg: "Password must be greater than five characters" });
-  }
-
-  if (password != confirm) {
-    errors.push({ msg: "Passwords do not match" });
-  }
-
-  if (errors.length > 0) {
-    res.render("signup", {
-      errors,
-      email,
+exports.signupHandler = async (req, res, next) => {
+  try {
+    const {
       name,
-      state,
-      school,
       username,
+      school,
+      state,
+      email,
       password,
       confirm,
-      userType,
       gender,
-    });
+      userType,
+    } = req.body;
 
-    // res.redirect('back')
-  } else {
-    User.findOne({ email: email }).then((founduser) => {
-      errors.push({ msg: "A user with that email already exist" });
-      if (founduser) {
-        res.render("signup", {
-          errors,
-          email,
-          name,
-          school,
-          state,
-          username,
-          password,
-          confirm,
-          userType,
-          gender,
-        });
-      } else {
-        const newUser = new User({
-          email,
-          name,
-          password,
-          state,
-          school,
-          username,
-          userType,
-          gender,
-        });
-        bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(newUser.password, salt, (err, hashed) => {
-            newUser.password = hashed;
-            newUser
-              .save()
-              .then((user) => {
+    let errors = [];
+
+    if (
+      !name ||
+      !username ||
+      !email ||
+      !state ||
+      !school ||
+      !password ||
+      !confirm ||
+      !userType ||
+      !gender
+    ) {
+      errors.push({ msg: "Please fill in all fields" });
+    }
+
+    if (password.length <= 5) {
+      errors.push({ msg: "Password must be greater than five characters" });
+    }
+
+    if (password != confirm) {
+      errors.push({ msg: "Passwords do not match" });
+    }
+
+    if (errors.length > 0) {
+      res.render("signup", {
+        errors,
+        email,
+        name,
+        state,
+        school,
+        username,
+        password,
+        confirm,
+        userType,
+        gender,
+      });
+
+      // res.redirect('back')
+    } else {
+      await User.findOne({ email: email }).then((founduser) => {
+        errors.push({ msg: "A user with that email already exist" });
+        if (founduser) {
+          res.render("signup", {
+            errors,
+            email,
+            name,
+            school,
+            state,
+            username,
+            password,
+            confirm,
+            userType,
+            gender,
+          });
+        } else {
+          const newUser = new User({
+            email,
+            name,
+            password,
+            state,
+            school,
+            username,
+            userType,
+            gender,
+          });
+          bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(newUser.password, salt, (err, hashed) => {
+              newUser.password = hashed;
+              newUser.save().then((user) => {
                 console.log(user);
                 req.flash(
                   "success_msg",
@@ -104,20 +102,20 @@ exports.signupHandler = (req, res, next) => {
                   failureRedirect: "/login",
                   failureFlash: true,
                 })(req, res, next);
-              })
-              .catch((err) => {
-                throw err;
               });
+            });
           });
-        });
-      }
-    });
+        }
+      });
+    }
+  } catch (err) {
+    return new AppError(err.message, err.status);
   }
 };
 exports.login = (req, res, next) => {
-    passport.authenticate("local", {
-      successRedirect: "back",
-      failureRedirect: "back",
-      failureFlash: true,
-    })(req, res, next);
-  }
+  passport.authenticate("local", {
+    successRedirect: "back",
+    failureRedirect: "back",
+    failureFlash: true,
+  })(req, res, next);
+};
