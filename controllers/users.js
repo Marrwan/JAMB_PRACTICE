@@ -3,7 +3,7 @@ const passport = require("passport");
 
 // LOAD MODELS
 const User = require("../models/User");
-const AppError = require("../utilities/appError");
+
 
 exports.getSignupForm = (req, res) => {
   res.render("signup");
@@ -109,7 +109,7 @@ exports.signupHandler = async (req, res, next) => {
       });
     }
   } catch (err) {
-    return new AppError(err.message, err.status);
+    next(err)
   }
 };
 exports.login = (req, res, next) => {

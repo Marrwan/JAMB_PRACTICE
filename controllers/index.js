@@ -3,9 +3,9 @@ const axios = require("axios");
 
 const Subject = require("../models/Subject");
 const User = require("../models/User");
-const AppError = require("../utilities/appError");
 
-exports.getHomepage = async (req, res) => {
+
+exports.getHomepage = async (req, res, next) => {
   try {
     const response = await axios.get("https://type.fit/api/quotes");
     const random = Math.floor(Math.random() * response.data.length);
@@ -17,11 +17,12 @@ exports.getHomepage = async (req, res) => {
       });
     });
   } catch (err) {
-    return new AppError(err.message, err.status);
+    next(err)
   }
 };
 
-exports.getDashboard = async (req, res) => {
+exports.getDashboard = async (req, res, next) => {
+  try{
   await User.find({}, async(err, users) => {
    await User.findOne({ name: req.user.name })
       .populate("subject_list")
@@ -29,6 +30,9 @@ exports.getDashboard = async (req, res) => {
         res.render("dashboard", { users, user });
       });
   });
+}catch(err){
+  next(err)
+}
 };
 
 exports.logout = (req, res) => {

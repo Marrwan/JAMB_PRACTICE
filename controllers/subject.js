@@ -4,17 +4,23 @@ const User = require("../models/User");
 const Score = require("../models/Score");
 
 exports.getSubjects = async(req, res, next) => {
+  try{
  await Subject.find({}, (err, subject) => {
     if (err) next(err);
     res.render("Subject/subjects", { subject });
   });
+}
+catch(err){
+  next(err)
+}
 };
 
 exports.getFormAddSubject = (req, res) => {
   res.render("Subject/new");
 };
 
-exports.addSubjectHandler = async(req, res) => {
+exports.addSubjectHandler = async(req, res, next) => {
+  try{
   const { subjectname } = req.body;
 
   let errors = [];
@@ -38,9 +44,13 @@ exports.addSubjectHandler = async(req, res) => {
       }
     });
   }
+}catch(err){
+  next(err)
+}
 };
 
-exports.delete = async (req, res) => {
+exports.delete = async (req, res, next) => {
+  try{
   await Subject.findByIdAndRemove(req.params.id, (err, deleted) => {
     if (err) {
       req.flash("error_msg", err);
@@ -50,19 +60,23 @@ exports.delete = async (req, res) => {
       res.redirect("/subjects");
     }
   });
+}catch(err){
+  next(err)
+}
 };
 
-exports.getTestPage = async (req, res) => {
+exports.getTestPage = async (req, res,next) => {
   try {
     await Subject.findById(req.params.id, async (err, subject) => {
       res.render("Subject/test", { subject });
     });
   } catch (err) {
-    return new AppError(err.message, err.status);
+    next(err)
   }
 };
 
-exports.addSubjectForStudentHandler = async (req, res) => {
+exports.addSubjectForStudentHandler = async (req, res, next) => {
+  try{
   await User.findOne({ name: req.user.name }, async(err, user) => {
     if (err) {
       throw err;
@@ -94,8 +108,12 @@ exports.addSubjectForStudentHandler = async (req, res) => {
       });
     }
   });
+}catch(err){
+  next(err)
+}
 };
-exports.deleteSubjectForStudentHandler = async (req, res) => {
+exports.deleteSubjectForStudentHandler = async (req, res,next) => {
+  try{
   await User.findOneAndUpdate(
     { name: req.user.name },
     { $pull: { subject_list: req.params.id } },
@@ -117,13 +135,20 @@ exports.deleteSubjectForStudentHandler = async (req, res) => {
       }
     }
   );
+  }catch(err){
+    next(err)
+  }
 };
 
-exports.recordScoreHandler = async(req, res) => {
+exports.recordScoreHandler = async(req, res, next) => {
+  try{
 await  User.findOne({ name: req.user.name },async (err, user) => {
    await Subject.findById(req.params.id, (err, subject) => {
       req.flash("success_msg", `you score is ${req.params.score}`);
       res.redirect("/dashboard");
     });
   });
+}catch(err){
+  next(err)
+}
 };
