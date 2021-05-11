@@ -18,7 +18,7 @@ router.get("/about", (req, res) => {
 });
 //  GET-ROUTE : Get about page.
 router.get("/back", (req, res) => {
-  res.redirect("..");
+  res.redirect("back");
 });
 //  GET-ROUTE : Get admin signup page.
 router.get("/admin", (req, res) => {
@@ -41,5 +41,5 @@ router.get("/instagram", (req, res) => {
 router.get("/whatsapp", (req, res) => {
   res.redirect("https://wa.me/+2349064377766");
 });
-router.get('/back', index.back)
+router.get("/back", index.back);
 module.exports = router;
