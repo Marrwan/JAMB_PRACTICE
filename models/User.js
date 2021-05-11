@@ -8,10 +8,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
   },
   state: {
-    type :String,
+    type: String,
   },
-  school:{
-    type:String
+  school: {
+    type: String,
   },
   password: {
     type: String,
@@ -31,21 +31,8 @@ const UserSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Subject",
-      unique:true
     },
   ],
-  score:[
-    {
-    subject: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Subject",
-      unique:true
-    },
-    score: {
-      type: Number
-    }
-  }
-  ]
 });
 
 module.exports = mongoose.model("User", UserSchema);
