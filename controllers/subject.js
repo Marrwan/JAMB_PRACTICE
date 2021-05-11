@@ -3,8 +3,8 @@ const Subject = require("../models/Subject");
 const User = require("../models/User");
 const Score = require("../models/Score");
 
-exports.getSubjects = (req, res, next) => {
-  Subject.find({}, (err, subject) => {
+exports.getSubjects = async(req, res, next) => {
+ await Subject.find({}, (err, subject) => {
     if (err) next(err);
     res.render("Subject/subjects", { subject });
   });
@@ -12,10 +12,9 @@ exports.getSubjects = (req, res, next) => {
 
 exports.getFormAddSubject = (req, res) => {
   res.render("Subject/new");
-  res.render("subject/new");
 };
 
-exports.addSubjectHandler = (req, res) => {
+exports.addSubjectHandler = async(req, res) => {
   const { subjectname } = req.body;
 
   let errors = [];
@@ -25,14 +24,14 @@ exports.addSubjectHandler = (req, res) => {
   if (errors.length > 0) {
     res.render("Subject/new", { subjectname, errors });
   } else {
-    Subject.findOne({ subjectname }, (err, samesubject) => {
+   await Subject.findOne({ subjectname }, async(err, samesubject) => {
       if (err) throw new Error(err);
       if (samesubject) {
         errors.push({ msg: "subjectname already exist" });
         res.render("Subject/new", { subjectname, errors });
       } else {
         let newSubject = new Subject({ subjectname });
-        newSubject.save((err, saved) => {
+      await  newSubject.save((err, saved) => {
           req.flash("success_msg", `${subjectname} has been created`);
           res.redirect("/subjects");
         });
@@ -44,8 +43,8 @@ exports.addSubjectHandler = (req, res) => {
 exports.delete = async (req, res) => {
   await Subject.findByIdAndRemove(req.params.id, (err, deleted) => {
     if (err) {
-      res.redirect("/subjects");
       req.flash("error_msg", err);
+      res.redirect("/subjects");
     } else {
       req.flash("success_msg", ` deleted`);
       res.redirect("/subjects");
@@ -64,11 +63,11 @@ exports.getTestPage = async (req, res) => {
 };
 
 exports.addSubjectForStudentHandler = async (req, res) => {
-  await User.findOne({ name: req.user.name }, (err, user) => {
+  await User.findOne({ name: req.user.name }, async(err, user) => {
     if (err) {
       throw err;
     } else {
-      Subject.findById(req.params.id, (err, fsubject) => {
+    await  Subject.findById(req.params.id, async(err, fsubject) => {
         if (err) {
           throw err;
         } else {
@@ -78,7 +77,7 @@ exports.addSubjectForStudentHandler = async (req, res) => {
           } else {
             user.subject_list.push(fsubject);
             // user.score.push(fsubject)
-            user.save((err, data) => {
+          await  user.save((err, data) => {
               if (err) {
                 throw err;
               } else {
@@ -100,11 +99,11 @@ exports.deleteSubjectForStudentHandler = async (req, res) => {
   await User.findOneAndUpdate(
     { name: req.user.name },
     { $pull: { subject_list: req.params.id } },
-    (err, user) => {
+    async(err, user) => {
       if (err) {
         throw err;
       } else {
-        Subject.findById(req.params.id, (err, fsubject) => {
+      await  Subject.findById(req.params.id, (err, fsubject) => {
           if (err) {
             throw err;
           } else {
@@ -120,9 +119,9 @@ exports.deleteSubjectForStudentHandler = async (req, res) => {
   );
 };
 
-exports.recordScoreHandler = (req, res) => {
-  User.findOne({ name: req.user.name }, (err, user) => {
-    Subject.findById(req.params.id, (err, subject) => {
+exports.recordScoreHandler = async(req, res) => {
+await  User.findOne({ name: req.user.name },async (err, user) => {
+   await Subject.findById(req.params.id, (err, subject) => {
       req.flash("success_msg", `you score is ${req.params.score}`);
       res.redirect("/dashboard");
     });
