@@ -1,7 +1,7 @@
-const axios = require("axios");
+
 const Subject = require("../models/Subject");
 const User = require("../models/User");
-const Score = require("../models/Score");
+
 
 exports.getSubjects = async(req, res, next) => {
   try{
