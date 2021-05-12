@@ -1,5 +1,6 @@
      <%- include('./partials/header'); %>
-     <div class="container-fluid">
+     
+     <div class="container">
 
 <%if(User.userType== "admin"){%>
     <div id="layoutSidenav">
@@ -83,7 +84,7 @@
     </div>
 <% }else{ %> 
    
-<section class="mb-5"  style="height: 70vh;">
+<section class="mb-5" >
     <%- include('./partials/message'); %>
     <div class="row ">
        <% if(user.subject_list.length == 0){ %>
@@ -115,9 +116,7 @@
             <a href="/subjects/new">Create new subject</a>
             <%}%>
             <%}%>
-
-   
-                
-    <%}%>
+            <%}%>
 </div>
+
          <%- include('./partials/footer'); %>
