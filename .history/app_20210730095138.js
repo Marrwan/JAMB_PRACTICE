@@ -44,7 +44,7 @@ app.use(
     resave: false,
   })
 );
-app.use(flash())
+app.use(flash());
 
 // Passport MiddleWare
 app.use(passport.initialize());
