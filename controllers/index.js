@@ -10,12 +10,15 @@ exports.getHomepage = async (req, res, next) => {
     const response = await axios.get("https://type.fit/api/quotes");
     const random = Math.floor(Math.random() * response.data.length);
     const data = response.data[random];
-
-    await User.find({}, async (err, users) => {
-      await Subject.find({}, (err, subjects) => {
+    const users = await User.find({});
+    const subjects = await Subject.find({});
+      if(!users){
+          users = []
+      }
+    if(!subjects){
+      subjects = []
+    }
       return  res.render("index", { users, subjects, data });
-      });
-    });
   } catch (err) {
    return next(err)
   }
