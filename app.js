@@ -4,6 +4,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const MongoStore = require('connect-mongo')(session);
 const expressLayout = require("express-layouts");
 const mongoose = require("mongoose");
 const session = require("express-session");
@@ -42,6 +43,7 @@ app.use(
     secret: "Abdul",
     saveUninitialized: false,
     resave: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
   })
 );
 app.use(flash())
