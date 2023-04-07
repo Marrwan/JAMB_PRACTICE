@@ -13,11 +13,11 @@ exports.getHomepage = async (req, res, next) => {
 
     await User.find({}, async (err, users) => {
       await Subject.find({}, (err, subjects) => {
-        res.render("index", { users, subjects, data });
+      return  res.render("index", { users, subjects, data });
       });
     });
   } catch (err) {
-    next(err)
+   return next(err)
   }
 };
 
@@ -27,11 +27,11 @@ exports.getDashboard = async (req, res, next) => {
    await User.findOne({ name: req.user.name })
       .populate("subject_list")
       .exec((err, user) => {
-        res.render("dashboard", { users, user });
+       return res.render("dashboard", { users, user });
       });
   });
 }catch(err){
-  next(err)
+ return next(err)
 }
 };
 
