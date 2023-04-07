@@ -5,7 +5,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const session = require("express-session");
-const MongoStore = require('connect-mongo');
+// const MongoStore = require('connect-mongo');
 const expressLayout = require("express-layouts");
 const mongoose = require("mongoose");
 const flash = require("connect-flash");
@@ -43,7 +43,7 @@ app.use(
     secret: "Abdul",
     saveUninitialized: false,
     resave: false,
-    store: new MongoStore({ mongoUrl: process.env.mongoURI })
+//     store: new MongoStore({ mongoUrl: process.env.mongoURI })
   })
 );
 app.use(flash())
