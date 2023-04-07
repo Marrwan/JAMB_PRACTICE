@@ -12,14 +12,14 @@
         
         <!--First column-->
         <div class="col-md-3 mt-2">
-          <h1 class="white-text font-weight-bold"><%=users.length%></h1>
+          <h1 class="white-text font-weight-bold"><%=users?.length%></h1>
           <p>Registered Students</p>
         </div>
         <!--/First column-->
         
         <!--Second column-->
         <div class="col-md-3 mt-2">
-          <h1 class="white-text font-weight-bold"><%=subjects.length%></h1>
+          <h1 class="white-text font-weight-bold"><%=subjects?.length%></h1>
           <p>Subjects</p>
         </div>
         <!--/Second column-->
@@ -27,8 +27,8 @@
         <!--Third column-->
         <div class="col-md-3 mt-2">
         <%let male = 0; let female = 0;%>
-        <% users.forEach(user=>{ %>
-        <% user.gender == "male" ? male ++ : female++ %>
+        <% users?.forEach(user=>{ %>
+        <% user?.gender == "male" ? male ++ : female++ %>
        <%  })%>
           <h1 class="white-text font-weight-bold"><%=male%></h1>
           <p>Males</p>
@@ -137,10 +137,10 @@ style="background-image: url('https://images.unsplash.com/photo-1521587760476-6c
 <div class="flex-center mask rgba-purple-light">
   <div class="text-center white-text">  
     <h2 class="h2-responsive my-5 pt-5"><i class="fas fa-quote-left" aria-hidden="true"></i> 
-    <%=data.text%> 
+    <%=data?.text%> 
       <!-- HADEETH API -->
       <i class="fas fa-quote-right" aria-hidden="true">  </i> </h2>
-    <h5 class="text-center font-italic wow fadeIn" data-wow-delay="0.2s">  <%=data.author%></h5>
+    <h5 class="text-center font-italic wow fadeIn" data-wow-delay="0.2s">  <%=data?.author%></h5>
   </div>
 </div>
 </div>
