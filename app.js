@@ -43,7 +43,7 @@ app.use(
     secret: "Abdul",
     saveUninitialized: false,
     resave: false,
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
+    store: new MongoStore({ uri: process.env.mongoURI })
   })
 );
 app.use(flash())
